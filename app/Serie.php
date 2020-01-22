@@ -5,5 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Serie extends Model{
-    private $timestamps = false;
+    public $timestamps = false;
+    protected $fillable = ['nome'];
 }
