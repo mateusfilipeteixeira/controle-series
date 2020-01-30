@@ -21,7 +21,19 @@ class SeriesController extends Controller {
     }
 
     public function store(SeriesFormRequest $request){
-        $serie = Serie::create($request->all());
+        $serie = Serie::create(['nome' => $request->nome]);
+
+        $qtdTemporadas = $request->qtd_temporadas;
+        $epTemporada = $request->ep_por_temporada;
+
+        for($i = 1; $i <= $qtdTemporadas; $i++){
+            $temporada = $serie->temporadas()->create(['numero' => $i]);
+
+            for($j = 1; $j <= $epTemporada; $j++){
+                $temporada->episodios()->create(['numero' => $j]);
+            }
+        }
+
         $request->session()
             ->flash(
                 'mensagem',
